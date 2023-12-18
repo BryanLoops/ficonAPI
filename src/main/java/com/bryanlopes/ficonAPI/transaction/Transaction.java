@@ -1,5 +1,6 @@
 package com.bryanlopes.ficonAPI.transaction;
 
+import com.bryanlopes.ficonAPI.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,8 @@ public class Transaction {
     private String description;
     private Double value;
     private TransactionType type;
+    @OneToMany(mappedBy = "User")
+    private User user;
     private Boolean active;
 
     public Transaction(DataTransactionRegister data) {
