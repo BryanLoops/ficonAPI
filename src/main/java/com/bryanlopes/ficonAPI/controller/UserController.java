@@ -4,6 +4,7 @@ import com.bryanlopes.ficonAPI.user.DataUserList;
 import com.bryanlopes.ficonAPI.user.DataUserRegister;
 import com.bryanlopes.ficonAPI.user.User;
 import com.bryanlopes.ficonAPI.user.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,5 +29,13 @@ public class UserController {
     @GetMapping
     public Page<DataUserList> search(@PageableDefault(size=10, sort={"name"}) Pageable pagination) {
         return repository.findAll(pagination).map(DataUserList::new);
+    }
+
+    @GetMapping("/{userId}")
+    public DataUserList searchById(@PathVariable Long userId) {
+        User user = repository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+
+        return new DataUserList(user);
     }
 }
