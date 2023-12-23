@@ -24,10 +24,8 @@ public class Transaction {
     private String name;
     private String description;
     private Double value;
-
     private LocalDateTime registerDate;
-
-    private LocalDateTime settlingDate;
+    private String settlingDate;
     @Enumerated(EnumType.STRING)
     private TransactionType type;
     @Setter
@@ -45,7 +43,7 @@ public class Transaction {
         this.description = data.description();
         this.value = data.value();
         this.registerDate = LocalDateTime.now();
-        this.settlingDate = LocalDateTime.parse(data.settlingDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.settlingDate = data.settlingDate();
         this.type = data.type();
         this.user = data.user();
         this.active = true;

@@ -13,8 +13,8 @@ public record DataTransactionRegister(
         String description,
         @NotNull
         Double value,
-
-        LocalDateTime settlingDate,
+        @NotBlank
+        String settlingDate,
         @NotNull
         TransactionType type,
         @NotNull
